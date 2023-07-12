@@ -19,7 +19,7 @@ public class LocationRowMapper implements RowMapper<Location> {
 		 location.setLocationAddress(resultset.getString("locationAddress"));
 		 location.setCoordinates(resultset.getString("coordinates"));
 		 
-		return null;
+		return location;
 	}
 
 }
