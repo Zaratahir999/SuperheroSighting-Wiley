@@ -10,9 +10,15 @@ import com.teamtwo.dto.entity.Sighting;
 public class SightingRowMapper implements RowMapper<Sighting> {
 
 	@Override
-	public Sighting mapRow(ResultSet resultset, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Sighting mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+			Sighting sighting = new Sighting();
+			
+			sighting.setSightingId(resultSet.getInt("sightingId"));
+			sighting.setHeroId(resultSet.getInt("heroId"));
+			sighting.setLocationId(resultSet.getInt("locationId"));
+			sighting.setLocationDate(resultSet.getTimestamp("locationDate"));
+
+			return sighting;
 	}
 
 }
