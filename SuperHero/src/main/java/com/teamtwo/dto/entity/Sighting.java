@@ -1,6 +1,7 @@
 package com.teamtwo.dto.entity;
 
-import java.sql.Timestamp;
+
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,5 +15,5 @@ public class Sighting {
 	private int sightingId;
 	private int heroId;
 	private int locationId;
-	private Timestamp locationDate;
+	private Date locationDate;
 }
