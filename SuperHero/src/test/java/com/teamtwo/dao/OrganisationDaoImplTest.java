@@ -91,7 +91,7 @@ public class OrganisationDaoImplTest {
         int rowsAffected = dao.deleteOrganisation(2);
         assertEquals(1, rowsAffected);
 
-        Organisation deletedOrg = dao.getOrganisationById(101);
+        Organisation deletedOrg = dao.getOrganisationById(2);
         assertNull(deletedOrg);
     }
 
