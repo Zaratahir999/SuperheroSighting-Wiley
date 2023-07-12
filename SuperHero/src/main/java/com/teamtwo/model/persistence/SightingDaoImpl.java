@@ -19,6 +19,7 @@ public class SightingDaoImpl implements SightingDao {
 	public Sighting getSightingById(int sightingId) {
 		return jdbcTemplate.queryForObject("SELECT * FROM Sighting WHERE sightingId=?", new SightingRowMapper(), sightingId);
 	}
+	
 
 	@Override
 	public List<Sighting> getAllSighting() {
