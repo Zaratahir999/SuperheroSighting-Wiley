@@ -2,38 +2,56 @@ package com.teamtwo.model.persistence;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import com.teamtwo.dto.entity.Organisation;
 
+
+@Repository
 public class OrganisationDaoImpl implements OrganisationDao {
 
-	@Override
-	public Organisation getOrganisationById(int orgId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	
+	 @Override
+	    public Organisation getOrganisationById(int orgId) {
+	        String sql = "SELECT * FROM Organisation WHERE orgId = ?";
 
-	@Override
-	public List<Organisation> getAllOrganisations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	        return jdbcTemplate.queryForObject(sql, new OrganisationRowMapper(), orgId);
+	    }
 
-	@Override
-	public int editOrganisation(Organisation organisation) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	 @Override
+	    public List<Organisation> getAllOrganisations() {
+	        String sql = "SELECT * FROM Organisation";
 
-	@Override
-	public int addOrganisation(Organisation organisation) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	        return jdbcTemplate.query(sql, new OrganisationRowMapper());
+	    }
 
-	@Override
-	public int deleteOrganisation(int orgId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	 @Override
+	    public int editOrganisation(Organisation organisation) {
+	        String sql = "UPDATE Organisation SET orgName = ?, orgDesc = ?, orgAddress = ? WHERE orgId = ?";
+
+	        return jdbcTemplate.update(sql, organisation.getOrgName(), organisation.getOrgDesc(), 
+	                organisation.getOrgAddress(), organisation.getOrgId());
+	    }
+
+	 @Override
+	    public int addOrganisation(Organisation organisation) {
+	        String sql = "INSERT INTO Organisation (orgName, orgDesc, orgAddress) VALUES (?, ?, ?)";
+
+	        return jdbcTemplate.update(sql, organisation.getOrgName(), organisation.getOrgDesc(), 
+	                organisation.getOrgAddress());
+	    }
+
+	 @Override
+	    public int deleteOrganisation(int orgId) {
+	        String sql = "DELETE FROM Organisation WHERE orgId = ?";
+
+	        return jdbcTemplate.update(sql, orgId);
+	    }
 
 }
