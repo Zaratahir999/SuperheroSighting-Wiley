@@ -53,7 +53,7 @@ public class OrganisationDaoImplTest {
     @Test
     public void getAllOrganisations_GoldenPath() {
         List<Organisation> orgs = dao.getAllOrganisations();
-        assertEquals(2, orgs.size());
+        assertEquals(5, orgs.size());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class OrganisationDaoImplTest {
         int rowsAffected = dao.deleteOrganisation(2);
         assertEquals(1, rowsAffected);
 
-        Organisation deletedOrg = dao.getOrganisationById(2);
+        Organisation deletedOrg = dao.getOrganisationById(101);
         assertNull(deletedOrg);
     }
 

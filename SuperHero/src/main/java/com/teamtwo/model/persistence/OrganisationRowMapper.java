@@ -18,7 +18,7 @@ public class OrganisationRowMapper implements RowMapper<Organisation> {
          organisation.setOrgId(resultset.getInt("orgId"));
          organisation.setOrgName(resultset.getString("orgName"));
          organisation.setOrgDesc(resultset.getString("orgDesc"));
-         organisation.setOrgAddress(resultset.getString("orgAddess"));
+         organisation.setOrgAddress(resultset.getString("orgAddress"));
 		
 		return organisation;
 	}
