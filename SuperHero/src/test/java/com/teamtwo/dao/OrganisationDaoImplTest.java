@@ -9,16 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.teamtwo.dto.entity.Organisation;
 import com.teamtwo.model.persistence.OrganisationDaoImpl;
 import java.util.List;
 
 
-
+import com.teamtwo.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@ContextConfiguration(classes={com.teamtwo.client.SuperHeroApplication.class})
+
 public class OrganisationDaoImplTest {
 
     @Autowired
@@ -50,7 +53,7 @@ public class OrganisationDaoImplTest {
     @Test
     public void getAllOrganisations_GoldenPath() {
         List<Organisation> orgs = dao.getAllOrganisations();
-        assertEquals(2, orgs.size());
+        assertEquals(5, orgs.size());
     }
 
     @Test

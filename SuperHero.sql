@@ -85,3 +85,6 @@ values(01, "Super Strength",1),
 
 drop table Location;
 
+
+create database testSuperHero;
+use testSuperHero;
