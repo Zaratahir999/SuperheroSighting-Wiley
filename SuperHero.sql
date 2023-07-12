@@ -7,6 +7,7 @@ select * from Location;
 select * from Organisation;
 select * from HeroOrganisation;
 select * from Sighting;
+select * from SuperPower;
 
 create table Hero(
 heroId int primary key,
@@ -69,6 +70,17 @@ insert into HeroOrganisation
 values(1101, 1, 101),
 (1102, 2, 102),
 (1103, 3, 103);
+
+create table SuperPower(
+superPowerId int primary key,
+superPowerName varchar (20),
+heroId int,
+constraint foreign key(HEROID) REFERENCES Hero(HEROID));
+
+insert into SuperPower
+values(01, "Super Strength",1),
+(02, "Web Slinging",2),
+(03, "High Tech Genius",3);
 
 
 drop table Location;
