@@ -11,8 +11,14 @@ public class SuperPowerRowMapper implements RowMapper<SuperPower> {
 
 	@Override
 	public SuperPower mapRow(ResultSet resultset, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	SuperPower superPower=new SuperPower();
+		
+       superPower.setSuperPowerId(resultset.getInt("superPowerId"));
+       superPower.setSuperPowerName(resultset.getString("superPowerName"));
+       superPower.setHeroId(resultset.getInt("heroId"));
+  
+		
+		return superPower;
 	}
 
 }
