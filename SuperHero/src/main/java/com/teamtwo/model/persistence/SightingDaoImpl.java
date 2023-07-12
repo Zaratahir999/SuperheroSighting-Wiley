@@ -1,6 +1,6 @@
 package com.teamtwo.model.persistence;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class SightingDaoImpl implements SightingDao {
 
 	@Override
 	public int editSighting(Sighting sighting) {
-		return jdbcTemplate.update("UPDATE Sighting SET heroId = ?, locationId = ?, locationDate = ? WHERE sightingId = ?", sighting.getHeroId(), sighting.getLocationId(), sighting.getLocationDate());
+		return jdbcTemplate.update("UPDATE Sighting SET heroId = ?, locationId = ?, locationDate = ? WHERE sightingId = ?", sighting.getHeroId(), sighting.getLocationId(), sighting.getLocationDate(), sighting.getSightingId());
 	}
 	
 	@Override
@@ -39,12 +39,14 @@ public class SightingDaoImpl implements SightingDao {
 
 	@Override
 	public int deleteSighting(int sightingId) {
-		
-		return jdbcTemplate.update("DELETE FROM Sighting WHERE sightingId = ?", sightingId);
+	    
+		String sql = "DELETE FROM Sighting WHERE sightingId = ?";
+	    return jdbcTemplate.update(sql, sightingId);
 	}
 
+
 	@Override
-	public List<Sighting> getSightingByDate(Timestamp locationDate) {
+	public List<Sighting> getSightingByDate(Date locationDate) {
 	
 		return jdbcTemplate.query("SELECT * FROM Sighting WHERE locationDate= ? ", new SightingRowMapper(), locationDate);
 	}
