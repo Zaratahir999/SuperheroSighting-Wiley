@@ -1,4 +1,4 @@
-package com.teamtwo.service;
+package com.teamtwo.model.service;
 
 import java.util.List;
 
