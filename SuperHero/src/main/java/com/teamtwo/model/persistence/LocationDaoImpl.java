@@ -16,33 +16,29 @@ public class LocationDaoImpl implements LocationDao {
 	
 	@Override
 	public Location getLocationById(int locationId) {
-		  String sql = "SELECT * FROM Location WHERE locationId = ?";
-
-	        return jdbcTemplate.queryForObject(sql, new LocationRowMapper(), locationId);
+		
+		return jdbcTemplate.queryForObject("SELECT * FROM Location WHERE locationId=?", new LocationRowMapper(), locationId);
 	}
 
 	@Override
 	public List<Location> getAllLocations() {
 		
-		String sql = "SELECT * FROM Location";
-
-        return jdbcTemplate.query(sql, new LocationRowMapper());
+		return jdbcTemplate.query("SELECT * FROM Location", new LocationRowMapper());
 	}
 
 	@Override
 	public int editLocation(Location location) {
-		String sql = "UPDATE Location SET locationName = ?, locationDesc = ?, locationAddress = ? , coordinates = ? WHERE locationId = ?";
-
-        return jdbcTemplate.update(sql, location.getLocationName(), location.getLocationDesc(), 
-                location.getLocationAddress(), location.getCoordinates(), location.getLocationId());
+		
+		return jdbcTemplate.update("UPDATE Location SET locationName = ?, locationDesc = ?, locationAddress = ?, coordinates = ?WHERE locationId = ?", location.getLocationName(), location.getLocationDesc(), 
+              location.getLocationAddress(), location.getCoordinates(), location.getLocationId());
 	}
 
 	@Override
 	public int addLocation(Location location) {
-		 String sql = "INSERT INTO Location (locationName, locationDesc, locationAddress, coordinates) VALUES (?, ?, ?, ?)";
+		
+		return jdbcTemplate.update("INSERT INTO Location VALUES (?, ?, ?, ?, ?) ",location.getLocationId(), location.getLocationName(), location.getLocationDesc(), 
+	              location.getLocationAddress(), location.getCoordinates());
 
-	        return jdbcTemplate.update(sql, location.getLocationName(), location.getLocationDesc(), 
-	                location.getLocationAddress(), location.getCoordinates());
 	}
 
 	@Override
