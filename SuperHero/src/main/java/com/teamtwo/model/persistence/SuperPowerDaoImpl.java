@@ -2,38 +2,41 @@ package com.teamtwo.model.persistence;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import com.teamtwo.dto.entity.SuperPower;
 
+@Repository
 public class SuperPowerDaoImpl implements SuperPowerDao {
 
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
 	@Override
 	public SuperPower getSuperPowerById(int superPowerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.queryForObject("SELECT * FROM SuperPower WHERE SuperPowerId=?", new SuperPowerRowMapper(), superPowerId);
 	}
 
 	@Override
 	public List<SuperPower> getAllSuperPowers() {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.query("SELECT * FROM SuperPower", new SuperPowerRowMapper());
 	}
 
 	@Override
 	public int editSuperPower(SuperPower superPower) {
-		// TODO Auto-generated method stub
-		return 0;
+		return jdbcTemplate.update("UPDATE SuperPower SET superPowerName = ?, heroId = ? WHERE superPowerId = ?", superPower.getSuperPowerName(), superPower.getHeroId(), superPower.getSuperPowerId());
 	}
 
 	@Override
 	public int addSuperPower(SuperPower superPower) {
-		// TODO Auto-generated method stub
-		return 0;
+		return jdbcTemplate.update("INSERT INTO SuperPower VALUES (?, ?, ?) ", superPower.getSuperPowerId(), superPower.getSuperPowerName(), superPower.getHeroId());
 	}
 
 	@Override
 	public int deleteSuperPower(int superPowerId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return jdbcTemplate.update("DELETE FROM SuperPower WHERE superPowerId=?", superPowerId);
 	}
 
 }

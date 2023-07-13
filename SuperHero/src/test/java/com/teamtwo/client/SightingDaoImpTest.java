@@ -1,6 +1,8 @@
 package com.teamtwo.client;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,34 +29,41 @@ public class SightingDaoImpTest {
 	private JdbcTemplate jdbcTemplate;
 	
 	
-	
+	 @BeforeEach
+	    public void setup() {
+	       
+	        jdbcTemplate.update("INSERT INTO Sighting (sightingId, heroId, locationId, locationDate) VALUES (?, ?, ?, ?)" ,888, 3, 2,Date.valueOf("2023-01-01"));
+	        jdbcTemplate.update("INSERT INTO Sighting (sightingId, heroId, locationId, locationDate) VALUES (?, ?, ?, ?)" ,666, 3, 1, Date.valueOf("2023-01-01"));
+	    }
+	 
+	   @AfterEach
+	    public void cleanup() {
+	        jdbcTemplate.update("DELETE FROM Sighting WHERE sightingId IN (?, ?, ?)", 888, 666, 777);
+	    }
+
+	   
 	@Test
 	public void testGetSightingById() {
-	    Sighting retrievedSighting = sightingDao.getSightingById(111);
-	    assertEquals(111, retrievedSighting.getSightingId());
+	    Sighting retrievedSighting = sightingDao.getSightingById(888);
+	    assertEquals(888, retrievedSighting.getSightingId());
 	}
 	
-	@Test
-	public void testGetAllSightings() {
-		List<Sighting> sightings = sightingDao.getAllSighting();
-		assertEquals(1, sightings.size());
-	}
 	
 	@Test
 	public void testEditSighting() {
-	    Sighting originalSighting = sightingDao.getSightingById(111);
+	    Sighting originalSighting = sightingDao.getSightingById(888);
 	    assertNotNull(originalSighting);
 
-	    originalSighting.setHeroId(3);
+	    originalSighting.setHeroId(2);
 	    originalSighting.setLocationId(002);
 
 	    int rowsAffected = sightingDao.editSighting(originalSighting);
 	    assertEquals(1, rowsAffected);
 
-	    Sighting updatedSighting = sightingDao.getSightingById(111);
+	    Sighting updatedSighting = sightingDao.getSightingById(888);
 	    assertNotNull(updatedSighting);
 
-	    assertEquals(3, updatedSighting.getHeroId());
+	    assertEquals(2, updatedSighting.getHeroId());
 	    assertEquals(002, updatedSighting.getLocationId());
 	}
 
@@ -64,7 +73,7 @@ public class SightingDaoImpTest {
 	@Test
 	public void testAddSighting() {
 		Sighting sight = new Sighting();
-		sight.setSightingId(444);
+		sight.setSightingId(777);
 		sight.setHeroId(3);
 		sight.setLocationId(003);
 		sight.setLocationDate(Date.valueOf("2023-01-01"));
@@ -72,14 +81,14 @@ public class SightingDaoImpTest {
 		int rows = sightingDao.addSighting(sight);
 		assertEquals(1, rows);
 		
-		jdbcTemplate.update("DELETE FROM Sighting WHERE sightingId = ?", 444);
+		jdbcTemplate.update("DELETE FROM Sighting WHERE sightingId = ?", 777);
 		
 	}
 
 	
 	@Test
 	public void testDeleteSighting() {
-		assertEquals(0, sightingDao.deleteSighting(333));
+		assertEquals(1, sightingDao.deleteSighting(666));
 		
 	}
 
@@ -90,10 +99,16 @@ public class SightingDaoImpTest {
 
 	    List<Sighting> retrievedSightings = sightingDao.getSightingByDate(date);
 
-	    Assertions.assertEquals(1, retrievedSightings.size());
+	    Assertions.assertEquals(3, retrievedSightings.size());
 
 	    Assertions.assertEquals(111, retrievedSightings.get(0).getSightingId());
 	}
+	@Test
+	public void testGetAllSightings() {
+		List<Sighting> sightings = sightingDao.getAllSighting();
+		assertEquals(3, sightings.size());
+	}
+	
     }
 
 				
