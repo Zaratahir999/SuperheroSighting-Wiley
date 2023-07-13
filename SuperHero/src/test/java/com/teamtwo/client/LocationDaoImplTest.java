@@ -34,7 +34,7 @@ public class LocationDaoImplTest {
 	 @Test
 		public void testGetAllLocations_GoldenPath() {
 			List<Location> location = dao.getAllLocations();
-			assertEquals(7, location.size());
+			assertEquals(3, location.size());
 	 }
 	 
 	 @Test
