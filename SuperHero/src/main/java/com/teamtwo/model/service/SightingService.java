@@ -16,4 +16,4 @@ public interface SightingService {
 	List <Sighting> getSightingByLocationId (int locationId);
 
 
-}
+

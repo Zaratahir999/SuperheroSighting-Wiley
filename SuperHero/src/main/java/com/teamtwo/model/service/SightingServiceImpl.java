@@ -1,5 +1,6 @@
 package com.teamtwo.model.service;
 
+
 import java.sql.Date;
 import java.util.List;
 
@@ -67,5 +68,4 @@ public class SightingServiceImpl implements SightingService {
 	public List<Sighting> getSightingByLocationId(int locationId) {
 		return sightingDao.getSightingByLocationId(locationId);
 
-}
 }
