@@ -69,4 +69,3 @@ public class SightingServiceImpl implements SightingService {
 		return sightingDao.getSightingByLocationId(locationId);
 
 }
-}
