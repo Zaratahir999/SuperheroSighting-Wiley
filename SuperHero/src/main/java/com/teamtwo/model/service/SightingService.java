@@ -15,5 +15,7 @@ public interface SightingService {
 	List <Sighting> getSightingByDate (Date locationDate);
 	List <Sighting> getSightingByLocationId (int locationId);
 
+	
+}
 
 
